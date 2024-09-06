@@ -15,8 +15,8 @@ Response body (Success) :
     {
       "id": "integer",
       "created_at": "string (date-time)",
-      "latitude": "number (float)",
-      "longitude": "number (float)",
+      "latitude": "string",
+      "longitude": "string",
       "nama_pengguna": "string",
       "status_kasus": "string",
       "nomor_telepon_pengguna": "string"
@@ -44,8 +44,8 @@ Request Header :
 Request Body : 
 ```json
 {
-  "latitude": "number (float)",
-  "longitude": "number (float)",
+  "latitude": "string",
+  "longitude": "string",
   "nama_pengguna": "string",
   "status_kasus": "string",
   "nomor_telepon_pengguna": "string"

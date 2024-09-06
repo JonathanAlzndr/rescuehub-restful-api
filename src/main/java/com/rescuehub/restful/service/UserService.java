@@ -2,6 +2,7 @@ package com.rescuehub.restful.service;
 
 import com.rescuehub.restful.entity.User;
 import com.rescuehub.restful.model.RegisterUserRequest;
+import com.rescuehub.restful.model.UserResponse;
 import com.rescuehub.restful.repository.UserRepository;
 import com.rescuehub.restful.security.BCrypt;
 import jakarta.validation.ConstraintViolation;
@@ -45,6 +46,19 @@ public class UserService {
        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
 
        userRepository.save(user);
+    }
+
+
+    public UserResponse get(User user) {
+        return UserResponse.builder()
+                .nik(user.getNik())
+                .namaPengguna(user.getName())
+                .password(user.getPassword())
+                .nomorTelepon(user.getTelephoneNumber())
+                .kecamatan(user.getKecamatan())
+                .kelurahan(user.getKelurahan())
+                .lingkungan(user.getLingkungan())
+                .build();
     }
 
 
