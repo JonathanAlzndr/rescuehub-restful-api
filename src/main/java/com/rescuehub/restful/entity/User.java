@@ -33,9 +33,17 @@ public class User {
     @Column
     private String token;
 
-    @Column
+    @Column(name = "token_expired_at")
     private Long tokenExpiredAt;
 
+    @Column
+    private String kelurahan;
+
+    // Ke table CaseReport
     @OneToMany(mappedBy = "user")
     private List<CaseReport> caseReports;
+
+    // ke table Case
+    @OneToMany(mappedBy = "user")
+    private List<Case> caseList;
 }

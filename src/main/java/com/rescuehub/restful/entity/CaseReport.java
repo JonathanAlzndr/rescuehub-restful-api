@@ -1,18 +1,20 @@
 package com.rescuehub.restful.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "case_report")
-@Getter
 @Setter
+@Getter
 public class CaseReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int case_report_id;
+    private Integer case_report_id;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -24,5 +26,9 @@ public class CaseReport {
     @ManyToOne
     @JoinColumn(name = "user_nik", referencedColumnName = "nik")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "case_id", referencedColumnName = "case_id")
+    private Case aCase;
 
 }

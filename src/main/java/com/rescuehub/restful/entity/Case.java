@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +15,7 @@ public class Case {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int case_id;
+    private Integer case_id;
 
     @Column
     private LocalDateTime createdAt;
@@ -28,5 +29,11 @@ public class Case {
     @Column
     private String longitude;
 
+    @ManyToOne
+    @JoinColumn(name = "user_nik", // foreign key
+    referencedColumnName = "nik") // primary
+    private User user;
 
+    @OneToMany(mappedBy = "aCase")
+    private List<CaseReport> caseReportList;
 }
