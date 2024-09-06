@@ -22,7 +22,6 @@ public class CaseReport {
     @Column
     private String description;
 
-    // user_nik foreign key ke cases
     @ManyToOne
     @JoinColumn(name = "user_nik", referencedColumnName = "nik")
     private User user;

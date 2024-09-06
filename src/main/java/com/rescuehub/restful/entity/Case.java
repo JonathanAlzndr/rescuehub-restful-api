@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,8 +19,8 @@ public class Case {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer case_id;
 
-    @Column
-    private LocalDateTime createdAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
     @Column
     private String status;

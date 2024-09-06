@@ -35,7 +35,7 @@ Response body (Failed)
 
 ## Create Case
 
-Endpoint : POST api/cases
+Endpoint : POST /api/cases
 
 Request Header :
 
@@ -44,11 +44,10 @@ Request Header :
 Request Body : 
 ```json
 {
-  "latitude": "string",
-  "longitude": "string",
-  "nama_pengguna": "string",
-  "status_kasus": "string",
-  "nomor_telepon_pengguna": "string"
+  "createdAt": "TimeStamp",
+  "status": "String",
+  "latitude": "String",
+  "longitude": "String"
 }
 ```
 
@@ -68,7 +67,7 @@ Response Body (Failed) :
 
 ## Get Case Detail 
 
-Endpoint  : GET api/cases/{id}
+Endpoint  : GET /api/cases/{id}
 
 Request Header :
 

@@ -26,7 +26,6 @@ public class UserService {
     private ValidationService validationService;
 
 
-
     @Transactional
     public void register(RegisterUserRequest request) {
 
