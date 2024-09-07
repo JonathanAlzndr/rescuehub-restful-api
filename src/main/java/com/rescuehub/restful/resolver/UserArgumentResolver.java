@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Component
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
+
     @Autowired
     private UserRepository userRepository;
 

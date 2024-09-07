@@ -39,10 +39,10 @@ public class UserService {
        user.setNik(request.getNik());
        user.setName(request.getNamaPengguna());
        user.setTelephoneNumber(request.getNomorTelepon());
-       user.setKecamatan(request.getKecamatan());
-       user.setLingkungan(request.getLingkungan());
-       user.setKelurahan(request.getKelurahan());
        user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+       user.setKecamatan(request.getKecamatan());
+       user.setKelurahan(request.getKelurahan());
+       user.setLingkungan(request.getLingkungan());
 
        userRepository.save(user);
     }

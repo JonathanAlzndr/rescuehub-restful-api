@@ -7,6 +7,8 @@ import com.rescuehub.restful.model.RegisterUserRequest;
 import com.rescuehub.restful.model.TokenResponse;
 import com.rescuehub.restful.model.UserResponse;
 import com.rescuehub.restful.model.WebResponse;
+import com.rescuehub.restful.repository.CaseReportRepository;
+import com.rescuehub.restful.repository.CaseRepository;
 import com.rescuehub.restful.repository.UserRepository;
 import com.rescuehub.restful.security.BCrypt;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,11 +36,18 @@ class UserControllerTest {
     private UserRepository userRepository;
 
     @Autowired
+    private CaseReportRepository caseReportRepository;
+
+    @Autowired
+    private CaseRepository caseRepository;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {
         userRepository.deleteAll();
+
     }
 
     @Test
