@@ -67,7 +67,7 @@ Response Body (Failed) :
 
 ## Get Case Detail 
 
-Endpoint  : GET /api/cases/{id}
+Endpoint  : GET /api/cases/{caseId}
 
 Request Header :
 

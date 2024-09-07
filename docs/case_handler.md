@@ -1,6 +1,6 @@
-# Case Handler API Spec
+# Case Report API Spec
 
-## Create Case Handler 
+## Create Case Report 
 
 Endpoint : POST api/cases/{id}/response
 

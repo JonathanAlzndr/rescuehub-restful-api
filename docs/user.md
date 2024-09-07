@@ -106,6 +106,6 @@ Request Header :
 Response Body :
 ```json
 {
-  "data": "ok"
+  "data": "OK"
 }
 ```

@@ -48,6 +48,7 @@ public class UserService {
     }
 
 
+    @Transactional(readOnly = true)
     public UserResponse get(User user) {
         return UserResponse.builder()
                 .nik(user.getNik())
@@ -59,6 +60,5 @@ public class UserService {
                 .lingkungan(user.getLingkungan())
                 .build();
     }
-
 
 }
