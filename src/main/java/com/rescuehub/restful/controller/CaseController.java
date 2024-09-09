@@ -22,6 +22,7 @@ public class CaseController {
     @Autowired
     private UserService userService;
 
+    // Post a new case
     @PostMapping(
             path = "/api/cases",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -32,6 +33,7 @@ public class CaseController {
         return WebResponse.<String>builder().data("Case created successfully").build();
     }
 
+    // Get Detail Case
     @GetMapping(
             path = "/api/cases/{caseId}",
             produces = MediaType.APPLICATION_JSON_VALUE

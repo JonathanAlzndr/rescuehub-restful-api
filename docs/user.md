@@ -1,6 +1,6 @@
 # User API Spec
 
-## Register User
+## Register User (Done)
 
 Endpoint : POST /api/users
 
@@ -34,7 +34,7 @@ Response Body (Failed) :
 }
 ```
 
-## Login User
+## Login User (Done)
 
 Endpoint : POST /api/auth/login
 
@@ -65,7 +65,7 @@ Response Body (Failed, 401):
 }
 ```
 
-## Get User
+## Get User (Done)
 
 Endpoint : GET /api/users/current
 
@@ -95,7 +95,7 @@ Response Body (Failed, 401):
 }
 ```
 
-## Logout User
+## Logout User 
 
 Endpoint : DELETE /api/auth/logout
 

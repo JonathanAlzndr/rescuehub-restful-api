@@ -26,5 +26,5 @@ public class CaseDetailResponse {
 
     private String nomorTeleponPengguna;
 
-    private List<CaseReport> responses;
+    private List<CaseReportResponse> responses;
 }

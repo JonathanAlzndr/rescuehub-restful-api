@@ -18,6 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // Register
     @PostMapping(path = "/api/users",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,6 +27,7 @@ public class UserController {
         return WebResponse.<String>builder().data("User created successfully").build();
     }
 
+    // Get detail of the current user
     @GetMapping(
             path = "/api/users/current",
             produces = MediaType.APPLICATION_JSON_VALUE

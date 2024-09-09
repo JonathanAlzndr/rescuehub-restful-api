@@ -3,6 +3,7 @@ package com.rescuehub.restful.service;
 import com.rescuehub.restful.entity.Case;
 import com.rescuehub.restful.entity.User;
 import com.rescuehub.restful.model.CaseDetailResponse;
+import com.rescuehub.restful.model.CaseReportResponse;
 import com.rescuehub.restful.model.CreateCaseRequest;
 import com.rescuehub.restful.repository.CaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CaseService {
@@ -43,6 +47,9 @@ public class CaseService {
     }
 
     private CaseDetailResponse toCaseDetailResponse(Case cases) {
+        List<CaseReportResponse> caseReportResponses = cases.getCaseReportList().stream()
+                .map(report -> new CaseReportResponse(report.getImageUrl(), report.getDescription()))
+                .collect(Collectors.toList());
         return CaseDetailResponse.builder()
                 .id(cases.getCase_id())
                 .createdAt(cases.getCreatedAt())
@@ -50,7 +57,7 @@ public class CaseService {
                 .longitude(cases.getLongitude())
                 .statusKasus(cases.getStatus())
                 .nomorTeleponPengguna(cases.getUser().getTelephoneNumber())
-                .responses(cases.getCaseReportList())
+                .responses(caseReportResponses)
                 .build();
     }
 

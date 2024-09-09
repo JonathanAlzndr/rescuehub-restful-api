@@ -18,6 +18,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    // Login
     @PostMapping(
             path = "/api/auth/login",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -28,6 +29,7 @@ public class AuthController {
         return WebResponse.<TokenResponse>builder().data(tokenResponse).build();
     }
 
+    // Logout
     @DeleteMapping(
             path = "/api/auth/logout",
             produces = MediaType.APPLICATION_JSON_VALUE

@@ -1,8 +1,8 @@
 # Case Report API Spec
 
-## Create Case Report 
+## Create Case Report (Done)
 
-Endpoint : POST api/cases/{id}/response
+Endpoint : POST /api/cases/{caseId}/response
 
 Request Header :
 
@@ -11,16 +11,23 @@ Request Header :
 Request Body : 
 ```json
 {
-  "image": "string (base64 encoded image)",
+  "image": "string",
   "description": "string"
 }
 ```
 
-Response Body : 
+Response Body (Success) : 
 
 ```json
 {
-  "data" : "Response submitted successfully and case status updated."
+  "data" : "Report submitted successfully and case status updated."
+}
+```
+
+Response Body (Failed) : 
+```json
+{
+  "data" : "Case report failed"
 }
 ```
 

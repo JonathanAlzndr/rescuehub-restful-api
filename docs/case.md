@@ -33,7 +33,7 @@ Response body (Failed)
 }
 ```
 
-## Create Case
+## Create Case (done)
 
 Endpoint : POST /api/cases
 
@@ -65,7 +65,7 @@ Response Body (Failed) :
 }
 ```
 
-## Get Case Detail 
+## Get Case Detail (done)
 
 Endpoint  : GET /api/cases/{caseId}
 
