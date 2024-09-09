@@ -3,6 +3,7 @@ package com.rescuehub.restful.service;
 import com.rescuehub.restful.entity.Case;
 import com.rescuehub.restful.entity.CaseReport;
 import com.rescuehub.restful.entity.User;
+import com.rescuehub.restful.model.AllCasesResponse;
 import com.rescuehub.restful.model.CaseDetailResponse;
 import com.rescuehub.restful.model.CreateCaseReportRequest;
 import com.rescuehub.restful.model.WebResponse;
@@ -38,7 +39,7 @@ public class CaseReportService {
         // jika kasus ada maka set caseToBeHandle ke CaseReport
         if(caseToBeHandle != null) {
             CaseReport caseReport = new CaseReport();
-            caseToBeHandle.setStatus("Ditanggapi");
+            caseToBeHandle.setStatus("Selesai");
             caseReport.setACase(caseToBeHandle);
             caseReport.setDescription(request.getDescription());
             caseReport.setUser(user);

@@ -1,6 +1,6 @@
 # Case API Spec
 
-## Get All Cases
+## Get All Cases (Done)
 
 Endpoint : GET /api/cases
 

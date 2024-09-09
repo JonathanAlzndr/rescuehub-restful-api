@@ -2,10 +2,10 @@ package com.rescuehub.restful.service;
 
 import com.rescuehub.restful.entity.Case;
 import com.rescuehub.restful.entity.User;
-import com.rescuehub.restful.model.CaseDetailResponse;
-import com.rescuehub.restful.model.CaseReportResponse;
-import com.rescuehub.restful.model.CreateCaseRequest;
+import com.rescuehub.restful.model.*;
 import com.rescuehub.restful.repository.CaseRepository;
+import com.rescuehub.restful.repository.UserRepository;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,10 @@ import java.util.stream.Collectors;
 public class CaseService {
 
     @Autowired
-    CaseRepository caseRepository;
+    private CaseRepository caseRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ValidationService validationService;
@@ -44,6 +47,22 @@ public class CaseService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
 
         return toCaseDetailResponse(cases);
+    }
+
+    @Transactional
+    public List<AllCasesResponse> get(User user) {
+
+        if(!userRepository.existsById(user.getNik())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+
+        val listCase = caseRepository.findAll();
+        return listCase.stream().map(cases -> new AllCasesResponse(
+                cases.getCase_id(), cases.getCreatedAt(),
+                cases.getLatitude(), cases.getLongitude(),
+                cases.getUser().getName(), cases.getStatus(),
+                cases.getUser().getTelephoneNumber()))
+                .toList();
     }
 
     private CaseDetailResponse toCaseDetailResponse(Case cases) {

@@ -36,6 +36,6 @@ public class AuthController {
     )
     public WebResponse<String> logout(User user) {
         authService.logout(user);
-        return WebResponse.<String>builder().data("OK").build();
+        return WebResponse.<String>builder().data("Logout Successfully").build();
     }
 }
