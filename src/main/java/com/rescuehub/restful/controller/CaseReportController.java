@@ -27,9 +27,7 @@ public class CaseReportController {
     public WebResponse<String> create(User user,
                                       @RequestBody CreateCaseReportRequest request,
                                       @PathVariable("caseId") Integer caseId) {
-
         caseReportService.create(user, request, caseId);
-
         return WebResponse.<String>builder()
                 .data("Case Report create successfully")
                 .build();

@@ -52,4 +52,17 @@ public class CaseController {
                 .data(response)
                 .build();
     }
+
+    @PutMapping(
+            path = "api/cases/{caseId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<String> updateCase(User user, @RequestBody UpdateCaseStatusRequest request, @PathVariable("caseId") Integer caseId) {
+        caseService.updateStatus(user, request, caseId);
+        return WebResponse.<String>builder()
+                .data("Case updated successfully")
+                .build();
+    }
+
 }

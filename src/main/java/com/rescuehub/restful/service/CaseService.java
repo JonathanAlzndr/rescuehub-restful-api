@@ -43,6 +43,9 @@ public class CaseService {
 
     @Transactional(readOnly = true)
     public CaseDetailResponse get(User user, Integer caseId) {
+        if(user.getToken() == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
         Case cases = caseRepository.findById(caseId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
 
@@ -52,7 +55,7 @@ public class CaseService {
     @Transactional
     public List<AllCasesResponse> get(User user) {
 
-        if(!userRepository.existsById(user.getNik())) {
+        if(user.getToken() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
 
@@ -63,6 +66,22 @@ public class CaseService {
                 cases.getUser().getName(), cases.getStatus(),
                 cases.getUser().getTelephoneNumber()))
                 .toList();
+    }
+
+    @Transactional
+    public void updateStatus(User user,  UpdateCaseStatusRequest request, Integer caseId) {
+
+        if(user.getToken() == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+
+        Case caseToBeUpdate = caseRepository.findById(caseId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
+
+        if(caseToBeUpdate != null) {
+            caseToBeUpdate.setStatus(request.getStatus());
+            caseRepository.save(caseToBeUpdate);
+        }
     }
 
     private CaseDetailResponse toCaseDetailResponse(Case cases) {

@@ -34,7 +34,7 @@ Response Body (Failed) :
 
 ## Update Case Status
 
-Endpoint : PUT api/cases/{id}
+Endpoint : PUT api/cases/{caseId}
 
 Request Header :
 
@@ -43,7 +43,7 @@ Request Header :
 Request Body : 
 ```json
 {
-  "status_kasus": "string"
+  "status": "string"
 }
 ```
 
@@ -51,6 +51,13 @@ Response Body (Success) :
 ```json
 {
   "data" : "Case Status Updated Successfully"
+}
+```
+
+Response Body (Failed) : 
+```json
+{
+  "data" : "Unauthorized"
 }
 ```
 
