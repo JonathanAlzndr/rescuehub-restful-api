@@ -11,7 +11,7 @@ Request Header :
 Request Body : 
 ```json
 {
-  "image": "string",
+  "imageUrl": "string",
   "description": "string"
 }
 ```

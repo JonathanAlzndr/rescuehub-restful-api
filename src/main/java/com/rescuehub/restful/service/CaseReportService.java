@@ -9,12 +9,20 @@ import com.rescuehub.restful.model.CreateCaseReportRequest;
 import com.rescuehub.restful.model.WebResponse;
 import com.rescuehub.restful.repository.CaseReportRepository;
 import com.rescuehub.restful.repository.CaseRepository;
+import lombok.Value;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.UUID;
 
 @Service
 public class CaseReportService {
@@ -25,26 +33,55 @@ public class CaseReportService {
     @Autowired
     CaseRepository caseRepository;
 
+    private final String uploadDir = "D:\\fileUpload";
+
     @Autowired
     private ValidationService validationService;
 
     @Transactional
-    public void create(User user, CreateCaseReportRequest request, Integer id) {
+    public void create(User user, CreateCaseReportRequest request, Integer id, MultipartFile file) {
         validationService.validate(request);
 
+        if(user.getToken() == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
         // cari kasus
         Case caseToBeHandle =  caseRepository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
 
-        // jika kasus ada maka set caseToBeHandle ke CaseReport
+
         if(caseToBeHandle != null) {
             CaseReport caseReport = new CaseReport();
             caseToBeHandle.setStatus("Selesai");
             caseReport.setACase(caseToBeHandle);
             caseReport.setDescription(request.getDescription());
             caseReport.setUser(user);
-            caseReport.setImageUrl(request.getImageUrl());
+
+            if(file != null && !file.isEmpty()) {
+                String imageUrl = saveUploadFile(file);
+                caseReport.setImageUrl(imageUrl);
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image file is required");
+            }
             caseReportRepository.save(caseReport);
+        }
+    }
+
+    private String saveUploadFile(MultipartFile file) {
+        try {
+            File directory = new File(uploadDir);
+            if(!directory.exists()) {
+                directory.mkdirs();
+            }
+            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            File uploadedFile = new File(directory, fileName);
+
+            try (OutputStream os = new FileOutputStream(uploadedFile)) {
+                os.write(file.getBytes());
+            }
+            return "D:/fileUpload/" + fileName;
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to save file", e);
         }
     }
 }

@@ -13,10 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateCaseReportRequest {
     @NotBlank
-    @Size(max = 100)
-    private String imageUrl;
-
-    @NotBlank
     @Size(max = 255)
     private String description;
 }

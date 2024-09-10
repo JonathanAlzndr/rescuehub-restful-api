@@ -60,17 +60,25 @@ public class CaseService {
         }
 
         val listCase = caseRepository.findAll();
-        return listCase.stream().map(cases -> new AllCasesResponse(
-                cases.getCase_id(), cases.getCreatedAt(),
-                cases.getLatitude(), cases.getLongitude(),
-                cases.getUser().getName(), cases.getStatus(),
-                cases.getUser().getTelephoneNumber()))
-                .toList();
+
+        return listCase.stream()
+                .flatMap(cases -> cases.getCaseReportList().stream()
+                        .map(caseReport -> new AllCasesResponse(
+                                cases.getCase_id(),
+                                cases.getCreatedAt(),
+                                cases.getLatitude(),
+                                cases.getLongitude(),
+                                cases.getUser().getName(),
+                                cases.getStatus(),
+                                cases.getUser().getTelephoneNumber(),
+                                caseReport.getImageUrl()
+                        ))
+                ).toList();
     }
 
     @Transactional
     public void updateStatus(User user,  UpdateCaseStatusRequest request, Integer caseId) {
-
+        validationService.validate(request);
         if(user.getToken() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }

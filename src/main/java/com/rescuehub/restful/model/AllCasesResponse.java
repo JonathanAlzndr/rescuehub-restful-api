@@ -18,4 +18,5 @@ public class AllCasesResponse {
     private String namaPengguna;
     private String statusKasus;
     private String nomorTeleponPengguna;
+    private String imageUrl;
 }
