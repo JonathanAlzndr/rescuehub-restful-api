@@ -7,12 +7,18 @@ import com.rescuehub.restful.repository.CaseRepository;
 import com.rescuehub.restful.repository.UserRepository;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
+import jakarta.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,16 +58,17 @@ public class CaseService {
         return toCaseDetailResponse(cases);
     }
 
-    @Transactional
-    public List<AllCasesResponse> get(User user) {
+    @Transactional(readOnly = true)
+    public List<AllCasesResponse> get(User user, Integer page, Integer size) {
 
         if(user.getToken() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
 
-        val listCase = caseRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Case> listCasePage = caseRepository.findAll(pageable);
 
-        return listCase.stream()
+        return listCasePage.stream()
                 .flatMap(cases -> cases.getCaseReportList().stream()
                         .map(caseReport -> new AllCasesResponse(
                                 cases.getCase_id(),

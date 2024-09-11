@@ -46,10 +46,12 @@ public class CaseController {
             path = "/api/cases",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<List<AllCasesResponse>> get(User user) {
-        val response = caseService.get(user);
-        return WebResponse.<List<AllCasesResponse>>builder()
+    public PagingResponse<List<AllCasesResponse>> get(User user, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+        val response = caseService.get(user, page, size);
+        return PagingResponse.<List<AllCasesResponse>>builder()
                 .data(response)
+                .page(page)
+                .size(size)
                 .build();
     }
 

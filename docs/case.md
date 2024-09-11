@@ -2,7 +2,11 @@
 
 ## Get All Cases (Done)
 
-Endpoint : GET /api/cases
+Endpoint : GET /api/cases/
+
+Query param : 
+- page: Integer, start from 0, default 0
+- size: Integer, default 10
 
 Request Header :
 
@@ -21,7 +25,9 @@ Response body (Success) :
       "status_kasus": "string",
       "nomor_telepon_pengguna": "string"
     }
-  ]
+  ],
+  "page": 0,
+  "size": 10
 }
 ```
 
