@@ -2,18 +2,15 @@ package com.rescuehub.restful.controller;
 
 import com.rescuehub.restful.entity.User;
 import com.rescuehub.restful.model.CreateCaseReportRequest;
-import com.rescuehub.restful.model.CreateCaseRequest;
 import com.rescuehub.restful.model.WebResponse;
-import com.rescuehub.restful.repository.CaseReportRepository;
 import com.rescuehub.restful.service.CaseReportService;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class CaseReportController {

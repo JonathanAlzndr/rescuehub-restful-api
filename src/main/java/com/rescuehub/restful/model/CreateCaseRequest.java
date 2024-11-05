@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class CreateCaseRequest {
 
     @NotNull
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @NotBlank
     @Size(max = 50)
@@ -34,4 +34,9 @@ public class CreateCaseRequest {
     @NotBlank
     @Size(max = 50)
     private String longitude;
+
+    @NotBlank
+    @Size(max = 500)
+    private String deskripsi;
+
 }

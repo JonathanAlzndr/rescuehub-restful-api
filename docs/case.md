@@ -23,7 +23,8 @@ Response body (Success) :
       "longitude": "string",
       "nama_pengguna": "string",
       "status_kasus": "string",
-      "nomor_telepon_pengguna": "string"
+      "nomor_telepon_pengguna": "string",
+      "image_url": "String"
     }
   ],
   "page": 0,
@@ -48,12 +49,14 @@ Request Header :
 - X-API-TOKEN : Token (Mandatory)
 
 Request Body : 
+file : image
 ```json
 {
   "createdAt": "TimeStamp",
   "status": "String",
   "latitude": "String",
-  "longitude": "String"
+  "longitude": "String",
+  "deskripsi": "String"
 }
 ```
 
@@ -91,6 +94,7 @@ Response Body (Success) :
     "nama_pengguna": "string",
     "status_kasus": "string",
     "nomor_telepon_pengguna": "string",
+    "imageUrl": "String",
     "responses": [
       {
         "image": "string (base64 encoded image)",

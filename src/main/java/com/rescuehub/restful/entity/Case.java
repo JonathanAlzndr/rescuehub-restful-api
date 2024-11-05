@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,7 @@ public class Case {
     private Integer case_id;
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column
     private String status;
@@ -33,6 +34,12 @@ public class Case {
     @JoinColumn(name = "user_nik", // foreign key
     referencedColumnName = "nik") // primary
     private User user;
+
+    @Column
+    private String deskripsi;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @OneToMany(mappedBy = "aCase")
     private List<CaseReport> caseReportList;

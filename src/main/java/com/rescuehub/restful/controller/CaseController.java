@@ -4,11 +4,23 @@ import com.rescuehub.restful.entity.User;
 import com.rescuehub.restful.model.*;
 import com.rescuehub.restful.service.CaseService;
 import com.rescuehub.restful.service.UserService;
+import jakarta.validation.constraints.Size;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,15 +33,33 @@ public class CaseController {
     @Autowired
     private UserService userService;
 
+    private final String uploadDir = "D:/fileUpload";
+
     // Post a new case
     @PostMapping(
             path = "/api/cases",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<String> create(User user, @RequestBody CreateCaseRequest request) {
-        caseService.create(user, request);
-        return WebResponse.<String>builder().data("Case created successfully").build();
+    public WebResponse<String> create(User user, @RequestParam("file") MultipartFile file,
+                                      @RequestParam("createdAt") LocalDateTime createdAt,
+                                      @RequestParam("description") String description,
+                                      @RequestParam("latitude") String latitude,
+                                      @RequestParam("longitude") String longitude) {
+
+        CreateCaseRequest request = new CreateCaseRequest();
+        request.setCreatedAt(createdAt);
+        request.setStatus("Baru");
+        request.setLatitude(latitude);
+        request.setLongitude(longitude);
+        request.setDeskripsi(description);
+        try {
+            caseService.create(user, request, file);
+            return WebResponse.<String>builder()
+                    .data("Case created successfully")
+                    .build();
+        } catch(Exception e) {
+            return WebResponse.<String>builder().data("Case created successfully").build();
+        }
     }
 
     // Get Detail Case
@@ -42,6 +72,7 @@ public class CaseController {
         return WebResponse.<CaseDetailResponse>builder().data(caseDetailResponse).build();
     }
 
+    // Get All Case
     @GetMapping(
             path = "/api/cases",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -65,6 +96,23 @@ public class CaseController {
         return WebResponse.<String>builder()
                 .data("Case updated successfully")
                 .build();
+    }
+
+    // Get case image
+    @GetMapping(
+            path = "/api/uploads/{filename:.+}"
+    )
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        try {
+            Resource resource = caseService.loadFile(filename);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
+                    .body(resource);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(null);
+        }
     }
 
 }

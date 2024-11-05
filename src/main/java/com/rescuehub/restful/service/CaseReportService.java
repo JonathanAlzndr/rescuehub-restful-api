@@ -3,14 +3,9 @@ package com.rescuehub.restful.service;
 import com.rescuehub.restful.entity.Case;
 import com.rescuehub.restful.entity.CaseReport;
 import com.rescuehub.restful.entity.User;
-import com.rescuehub.restful.model.AllCasesResponse;
-import com.rescuehub.restful.model.CaseDetailResponse;
 import com.rescuehub.restful.model.CreateCaseReportRequest;
-import com.rescuehub.restful.model.WebResponse;
 import com.rescuehub.restful.repository.CaseReportRepository;
 import com.rescuehub.restful.repository.CaseRepository;
-import lombok.Value;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,8 +27,6 @@ public class CaseReportService {
 
     @Autowired
     CaseRepository caseRepository;
-
-    private final String uploadDir = "D:\\fileUpload";
 
     @Autowired
     private ValidationService validationService;
@@ -67,8 +60,9 @@ public class CaseReportService {
         }
     }
 
-    private String saveUploadFile(MultipartFile file) {
+     private String saveUploadFile(MultipartFile file) {
         try {
+            String uploadDir = "D:\\fileUpload";
             File directory = new File(uploadDir);
             if(!directory.exists()) {
                 directory.mkdirs();

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.List;
 public class CaseDetailResponse {
     private Integer id;
 
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     private String latitude;
 
@@ -25,6 +26,8 @@ public class CaseDetailResponse {
     private String statusKasus;
 
     private String nomorTeleponPengguna;
+
+    private String description;
 
     private List<CaseReportResponse> responses;
 }
