@@ -43,7 +43,7 @@ public class AuthService {
                     .build();
 
         } else {
-           throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "NIK or password wrong");
+          throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "NIK or password wrong");
         }
     }
 

@@ -55,10 +55,10 @@ public class CaseController {
         try {
             caseService.create(user, request, file);
             return WebResponse.<String>builder()
-                    .data("Case created successfully")
+                    .data("Kasus berhasil dibuat")
                     .build();
         } catch(Exception e) {
-            return WebResponse.<String>builder().data("Case created successfully").build();
+            return WebResponse.<String>builder().data("Kasus berhasil dibuat").build();
         }
     }
 
